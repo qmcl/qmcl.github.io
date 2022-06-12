@@ -1,0 +1,687 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  <entry>
+    <title>CAP理论（转载）</title>
+    <url>/2022/CAP%E7%90%86%E8%AE%BA/</url>
+    <content><![CDATA[<h3 id="一致性c"><a class="markdownIt-Anchor" href="#一致性c">#</a> 一致性（C）：</h3>
+<p>在分布式系统中的所有数据备份，在同一时刻是否同样的值，<strong>即写操作之后的读操作，必须返回该值</strong>。（分为弱一致性、强一致性和最终一致性）</p>
+<p>集群中所有服务里的数据时刻保持一致。强调的是<strong>强一致性</strong>。</p>
+<h3 id="可用性a"><a class="markdownIt-Anchor" href="#可用性a">#</a> 可用性（A）：</h3>
+<p>在集群中一部分节点故障后，集群整体是否还能响应客户端的读写请求。（对数据更新具备高可用性）</p>
+<p>在一定延迟时间内完成用户请求操作并返回请求所需要数据。</p>
+<h3 id="分区容忍性p"><a class="markdownIt-Anchor" href="#分区容忍性p">#</a> 分区容忍性（P）：</h3>
+<p>一个分布式系统里面，节点组成的网络本来应该是连通的。然而可能因为一些故障，使得有些节点之间不连通了，整个网络就分成了几块区域。数据就散布在了这些不连通的区域中，这就叫分区。</p>
+<p>当你一个数据项只在一个节点中保存，那么分区出现后，和这个节点不连通的部分就访问不到这个数据了。这时分区就是无法容忍的。</p>
+<p>提高分区容忍性的办法就是一个数据项复制到多个节点上，那么出现分区之后，这一数据项就可能分布到各个区里。容忍性就提高了。</p>
+<p>然而，要把数据复制到多个节点，就会带来一致性的问题，就是多个节点上面的数据可能是不一致的。要保证一致，每次写操作就都要等待全部节点写成功，而这等待又会带来可用性的问题。</p>
+<p><strong>总的来说就是，数据存在的节点越多，分区容忍性越高，但要复制更新的数据就越多，一致性就越难保证。为了保证一致性，更新所有节点数据所需要的时间就越长，可用性就会降低。</strong></p>
+<blockquote>
+<p>作者：邬江</p>
+<p>链接：<a href="https://www.zhihu.com/question/54105974/answer/139037688">https://www.zhihu.com/question/54105974/answer/139037688</a></p>
+</blockquote>
+]]></content>
+      <tags>
+        <tag>cap</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>多线程（一）</title>
+    <url>/2022/more1/</url>
+    <content><![CDATA[<h2 id="概念"><a class="markdownIt-Anchor" href="#概念">#</a> 概念</h2>
+<p><strong>进程</strong>：进程（Process）是计算机中的程序关于某数据集合上的一次运行活动，是系统进行资源分配和调度的基本单位，是操作系统结构的基础。在早期面向进程设计的计算机结构中，进程是程序的基本执行实体；在当代面向线程设计的计算机结构中，进程是线程的容器。程序是指令、数据及其组织形式的描述，进程是程序的实体。（百度百科）</p>
+<p><strong>其实一个进程就是计算机上正在运行的某个程序</strong></p>
+<p><strong>线程</strong>：线程（Thread）是操作系统能够进行运算调度的最小单位。它被包含进程之中，是进程中的实际运作单位。一条线程指的是进程中一个单一顺序的控制流，一个进程中可以并发多个线程，每条线程并行执行不同的任务。</p>
+<blockquote>
+<p>比如运行 qq，qq 是一个进程，它能收信息（这是一个线程）、发信息（一个线程）、传文件（一个线程）…</p>
+</blockquote>
+<p><strong>多线程</strong>：通俗的来说，多线程就是指多个线程并发执行的情况。</p>
+<p><strong>多线程原理</strong>：</p>
+<blockquote>
+<p>CPU 把一段时间划分为多个很小的时间片段，然后让每个线程获得这些片段的执行权限，由于 CPU 的速度非常快，所以给人的感觉就像是同时运行一样。</p>
+<p>而现在的计算机大多数都是多核的，所以的确是可以做到同时运行的。</p>
+</blockquote>
+<p><strong>多线程好处</strong>：可以最大化的利用 CPU 的空闲时间，可以让程序在同一时间运行多种任务。</p>
+]]></content>
+      <categories>
+        <category>java</category>
+        <category>多线程</category>
+      </categories>
+      <tags>
+        <tag>多线程</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Ubuntu防火墙相关操作</title>
+    <url>/2022/Ubuntu%E9%98%B2%E7%81%AB%E5%A2%99%E7%9B%B8%E5%85%B3%E6%93%8D%E4%BD%9C/</url>
+    <content><![CDATA[<blockquote>
+<p>安装 Ubuntu 系统时，默认安装了 ufw 防火墙。</p>
+<p>如果没有 ufw 命令，先安装：sudo apt-get install ufw</p>
+</blockquote>
+<h2 id="防火墙常用命令"><a class="markdownIt-Anchor" href="#防火墙常用命令">#</a> 防火墙常用命令</h2>
+<h3 id="ubuntu查看防火墙状态"><a class="markdownIt-Anchor" href="#ubuntu查看防火墙状态">#</a> Ubuntu 查看防火墙状态</h3>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">sudo ufw status</span><br></pre></td></tr></table></figure>
+<ul>
+<li>Status: inactive：不活跃，表示没有开启防火墙，并不是没有安装防火墙</li>
+<li>Status: active：表示防火墙开启中</li>
+</ul>
+<h3 id="启用ufw防火墙"><a class="markdownIt-Anchor" href="#启用ufw防火墙">#</a> 启用 ufw 防火墙</h3>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">sudo ufw <span class="built_in">enable</span></span><br></pre></td></tr></table></figure>
+<p><img src="/2022/Ubuntu%E9%98%B2%E7%81%AB%E5%A2%99%E7%9B%B8%E5%85%B3%E6%93%8D%E4%BD%9C/1.png" alt="开启防火墙"></p>
+<h3 id="重启ufw防火墙"><a class="markdownIt-Anchor" href="#重启ufw防火墙">#</a> 重启 ufw 防火墙</h3>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">sudo ufw reload</span><br></pre></td></tr></table></figure>
+<p><img src="/2022/Ubuntu%E9%98%B2%E7%81%AB%E5%A2%99%E7%9B%B8%E5%85%B3%E6%93%8D%E4%BD%9C/2.png" alt="重启防火墙"></p>
+<h3 id="关闭ufw防火墙"><a class="markdownIt-Anchor" href="#关闭ufw防火墙">#</a> 关闭 ufw 防火墙</h3>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">sudo ufw <span class="built_in">disable</span></span><br></pre></td></tr></table></figure>
+<p><img src="/2022/Ubuntu%E9%98%B2%E7%81%AB%E5%A2%99%E7%9B%B8%E5%85%B3%E6%93%8D%E4%BD%9C/3.png" alt="关闭防火墙"></p>
+<h3 id="开启普通端口"><a class="markdownIt-Anchor" href="#开启普通端口">#</a> 开启普通端口</h3>
+<p><strong>注：开启或关闭任何端口后都要重启防火墙才能生效</strong></p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">sudo ufw allow 端口号</span><br></pre></td></tr></table></figure>
+<p><img src="/2022/Ubuntu%E9%98%B2%E7%81%AB%E5%A2%99%E7%9B%B8%E5%85%B3%E6%93%8D%E4%BD%9C/4.png" alt="开放普通端口"></p>
+<h3 id="关闭普通端口"><a class="markdownIt-Anchor" href="#关闭普通端口">#</a> 关闭普通端口</h3>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">sudo ufw delete allow 端口号</span><br></pre></td></tr></table></figure>
+<h3 id="指定协议端口"><a class="markdownIt-Anchor" href="#指定协议端口">#</a> 指定协议端口</h3>
+<p>开放指定协议端口：</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">sudo ufw allow 8081/tcp    //指定开放8081的tcp协议</span><br></pre></td></tr></table></figure>
+<p>关闭指定协议端口：</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">sudo ufw delete allow 8081/tcp      //指定关闭8081的tcp协议</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>Ubuntu</category>
+      </categories>
+      <tags>
+        <tag>Ubuntu</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>git</title>
+    <url>/2021/git/</url>
+    <content><![CDATA[<h3 id="1-git工作流程"><a class="markdownIt-Anchor" href="#1-git工作流程">#</a> 1、git 工作流程</h3>
+<p><img src="/2021/git/1.png" alt="git工作流程"></p>
+<span id="more"></span>
+<p>命令：</p>
+<ol>
+<li>clone：<strong>克隆</strong>，从远程仓库中克隆代码到本地仓库</li>
+<li>checkout：<strong>检出</strong>，从本地仓库检出一个仓库分支然后进行修订</li>
+<li>add：<strong>添加</strong>，在提交前先将代码提交到暂存区</li>
+<li>commit：<strong>提交</strong>，提交到本地仓库，本地仓库中保存修改的各个历史版本</li>
+<li>fetch：<strong>抓取</strong>，从远程库抓取到本地仓库，不进行任何的合并动作，一般操作比较少。</li>
+<li>pull：<strong>拉取</strong>，从远程库拉到本地库，自动进行合并（merge），然后放到工作区，相当于 fetch+merge</li>
+<li>push：<strong>推送</strong>，修改完成后，需要和团队成员共享代码时，将代码推送到远程仓库</li>
+</ol>
+<h3 id="2-git常用命令"><a class="markdownIt-Anchor" href="#2-git常用命令">#</a> 2、git 常用命令</h3>
+<ul>
+<li>ls/ll 查看当前目录</li>
+<li>cat 查看文件内容</li>
+<li>touch 创建文件</li>
+<li>vi vi 编辑器</li>
+</ul>
+<h3 id="3-基础操作指令"><a class="markdownIt-Anchor" href="#3-基础操作指令">#</a> 3、基础操作指令</h3>
+<p>git 工作目录下对于文件的<strong>修改</strong> (增加、删除、更新) 会存在几个状态，这些修改的状态会随着执行 git 命令而改变。</p>
+<p><img src="/2021/git/2.png" alt="目录状态"></p>
+<h4 id="3-1-查看修改的状态status"><a class="markdownIt-Anchor" href="#3-1-查看修改的状态status">#</a> 3-1、* 查看修改的状态（status）</h4>
+<ul>
+<li>作用：查看的修改的状态（暂存区、工作区）</li>
+<li>命令： <code>git status</code></li>
+</ul>
+<h4 id="3-2-添加工作区到暂存区add"><a class="markdownIt-Anchor" href="#3-2-添加工作区到暂存区add">#</a> 3-2、* 添加工作区到暂存区（add）</h4>
+<ul>
+<li>作用：添加工作区一个或多个文件的修改到暂存区</li>
+<li>命令： <code>git add</code>  单个文件名 | 通配符
+<ul>
+<li>将所有修改加入暂存区： <code>git add .</code></li>
+</ul>
+</li>
+</ul>
+<h4 id="3-3-提交暂存区到本地仓库commit"><a class="markdownIt-Anchor" href="#3-3-提交暂存区到本地仓库commit">#</a> 3-3、* 提交暂存区到本地仓库（commit）</h4>
+<ul>
+<li>作用：提交暂存区内容到本地仓库的当前分支</li>
+<li>命令： <code>git commit -m '注释内容'</code></li>
+</ul>
+<h4 id="3-4-查看提交日志log"><a class="markdownIt-Anchor" href="#3-4-查看提交日志log">#</a> 3-4、* 查看提交日志（log）</h4>
+<p>在.bashrc 文件中输入：（作用是配置别名）</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">#用于输出git提交日志 </span></span><br><span class="line"><span class="built_in">alias</span> git-log=<span class="string">&#x27;git log --pretty=oneline --all --graph --abbrev-commit&#x27;</span> </span><br><span class="line"><span class="comment">#用于输出当前目录所有文件及基本信息 </span></span><br><span class="line"><span class="built_in">alias</span> ll=<span class="string">&#x27;ls -al&#x27;</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>作用：查看提交记录</li>
+<li>命令：配置过别名后直接 <code>git-log</code></li>
+<li>log 后可跟参数：
+<ul>
+<li>–all  显示所有分支</li>
+<li>–pretty=online  将提交信息显示为一行</li>
+<li>–abbrev-commit  使输出的 commit 更简短</li>
+<li>–graph  以图的形式显示</li>
+</ul>
+</li>
+</ul>
+<h4 id="3-5-版本回退"><a class="markdownIt-Anchor" href="#3-5-版本回退">#</a> 3-5、版本回退</h4>
+<ul>
+<li>作用：版本切换</li>
+<li>命令： <code>git reset --hard commitID</code>
+<ul>
+<li>commitID 可以使用 <code>git-log</code>  或 <code>git log</code>  查看</li>
+</ul>
+</li>
+<li>查看已经删除的记录： <code>git reflog</code></li>
+</ul>
+<h3 id="4-分支"><a class="markdownIt-Anchor" href="#4-分支">#</a> 4、分支</h3>
+<ol>
+<li>查看本地分支： <code>git branch</code></li>
+<li>创建本地分支： <code>git branch 分支名</code></li>
+<li>***** 切换分支： <code>git checkout 分支名</code></li>
+<li>创建并切换分支： <code>git checkout -b 分支名</code></li>
+<li>***** 合并分支（一个分支上的提交可以合并到另一个分支）： <code> git merge 分支名称</code></li>
+<li>删除分支（不能删除当前分支，只能删除其他分支）
+<ol>
+<li><code>git branch -d b1</code> ：删除分支时，需要做各种检查</li>
+<li><code>git branch -D b1</code> ：不做任何检查，强制删除分支</li>
+</ol>
+</li>
+</ol>
+<h3 id="5-操作远程仓库"><a class="markdownIt-Anchor" href="#5-操作远程仓库">#</a> 5、操作远程仓库</h3>
+<h4 id="5-1-添加远程仓库"><a class="markdownIt-Anchor" href="#5-1-添加远程仓库">#</a> 5-1、添加远程仓库</h4>
+<ul>
+<li>命令： <code>git remote add 远端名称 仓库路径</code>
+<ul>
+<li>远端名称：默认是 origin，取决于远端服务器设置</li>
+<li>仓库路径：从远端服务器获取 URL</li>
+</ul>
+</li>
+</ul>
+<h4 id="5-2-查看远程仓库"><a class="markdownIt-Anchor" href="#5-2-查看远程仓库">#</a> 5-2、查看远程仓库</h4>
+<ul>
+<li>命令： <code>git remote</code></li>
+</ul>
+<h4 id="5-3-推送到远程仓库"><a class="markdownIt-Anchor" href="#5-3-推送到远程仓库">#</a> 5-3、推送到远程仓库</h4>
+<ul>
+<li>命令： <code>git push [-f] [--set-upstream] [远端名称 [本地分支名][:远端分支名] ]</code>
+<ul>
+<li>如果远程分支名和本地分支名称相同，则可以只写本地分支
+<ul>
+<li><code>git push origin master</code></li>
+</ul>
+</li>
+<li>-f 表示强制覆盖</li>
+<li><code>--set-upstream</code>  推送到远端的同时并且建立起和远端分支的关联关系
+<ul>
+<li><code>git push --set-upstream origin master </code></li>
+</ul>
+</li>
+<li>如果当前分支已经和远端分支关联，则可以省略分支名和远端名
+<ul>
+<li><code>git push</code>  将 master 分支推送到已关联的远端分支</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="5-4-本地分支与远程分支的关联关系"><a class="markdownIt-Anchor" href="#5-4-本地分支与远程分支的关联关系">#</a> 5-4、本地分支与远程分支的关联关系</h4>
+<ul>
+<li>命令： <code>git branch -vv</code></li>
+</ul>
+<h4 id="5-5-从远端仓库克隆"><a class="markdownIt-Anchor" href="#5-5-从远端仓库克隆">#</a> 5-5、从远端仓库克隆</h4>
+<p>如果已经有一个远端仓库，可以直接 clone 到本地。</p>
+<ul>
+<li>命令： <code>git clone 仓库路径 [本地目录]</code>
+<ul>
+<li>本地目录可以省略，会自动生成一个目录</li>
+</ul>
+</li>
+</ul>
+<h4 id="5-6-从远端仓库中抓取和拉取"><a class="markdownIt-Anchor" href="#5-6-从远端仓库中抓取和拉取">#</a> 5-6、从远端仓库中抓取和拉取</h4>
+<p>远程分支和本地的分支一样，都可以进行 merge 操作，只是需要<strong>先把远端仓库里的更新都下载到本</strong></p>
+<p><strong>地，再进行操作</strong>。</p>
+<ul>
+<li>抓取  命令： <code>git fetch 远端名 分支名</code>
+<ul>
+<li><strong>抓取指令就是将仓库里的更新都抓取到本地，不会进行合并</strong></li>
+<li>如果不指定远端名和分支名，则抓取所有分支</li>
+</ul>
+</li>
+<li>拉取  命令： <code>git pull 远端名 分支名</code>
+<ul>
+<li><strong>拉取指令就是将远端仓库的修改拉到本地并自动进行合并，等同于 fetch+merge</strong></li>
+<li>如果不指定远端名和分支名，则抓取所有并更新当前分支</li>
+</ul>
+</li>
+</ul>
+<h3 id="附几条铁令"><a class="markdownIt-Anchor" href="#附几条铁令">#</a> 附：几条铁令</h3>
+<ol>
+<li><strong>切换分支前先提交本地的修改</strong></li>
+<li>代码及时提交，提交过了就不会丢</li>
+</ol>
+<h3 id="附idea集成gitbash作为terminal"><a class="markdownIt-Anchor" href="#附idea集成gitbash作为terminal">#</a> 附：idea 集成 GitBash 作为 Terminal</h3>
+<p>file --&gt; settings --&gt; Tools --&gt;  Terminal 修改：</p>
+<p><img src="/2021/git/3.png" alt="设置Terminal"></p>
+]]></content>
+      <categories>
+        <category>git</category>
+      </categories>
+      <tags>
+        <tag>git</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>多线程（二）</title>
+    <url>/2022/more2/</url>
+    <content><![CDATA[<blockquote>
+<p>一个进程在运行时，至少有一个线程在运行。</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">HasOneThreadTest</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="comment">//获取当前正在执行的线程</span></span><br><span class="line">        <span class="type">Thread</span> <span class="variable">thread</span> <span class="operator">=</span> Thread.currentThread();</span><br><span class="line">        <span class="comment">//获取线程的名字</span></span><br><span class="line">        System.out.println(thread.getName());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上面代码的运行结果是输出了 main，这个 main 是当前运行的线程和线程名字，和 main 方法的那个 main 没什么关系。</p>
+<h2 id="通过继承thread创建线程"><a class="markdownIt-Anchor" href="#通过继承thread创建线程">#</a> 通过继承 Thread 创建线程</h2>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MyThreadTest</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">class</span> <span class="title class_">MyThread</span> <span class="keyword">extends</span> <span class="title class_">Thread</span> &#123;</span><br><span class="line">        <span class="comment">//这个run方法里面的代码，就是这个线程具体运行的代码</span></span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">run</span><span class="params">()</span> &#123;</span><br><span class="line">            System.out.println(<span class="string">&quot;当前线程是：&quot;</span> + Thread.currentThread().getName());</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//来测试下线程直接调用run方法和调用start方法的区别</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">MyThread</span> <span class="variable">myThread</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">MyThread</span>();</span><br><span class="line">        myThread.run();</span><br><span class="line">        myThread.start();</span><br><span class="line">        System.out.println(<span class="string">&quot;main方法线程名：&quot;</span> + Thread.currentThread().getName());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>运行结果：</p>
+<p><img src="/2022/more2/run.png" alt="run和start"></p>
+<p>直接调用线程的 run 方法，就跟平常调用类的方法没什么两样，其实还是在主线程中执行的，就不能通过新线程来执行。</p>
+<p>启动新线程执行，得用 <code>start()</code>  方法。</p>
+<h2 id="线程运行具有随机性"><a class="markdownIt-Anchor" href="#线程运行具有随机性">#</a> 线程运行具有随机性</h2>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MyThreadTest</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">class</span> <span class="title class_">MyThread</span> <span class="keyword">extends</span> <span class="title class_">Thread</span> &#123;</span><br><span class="line">        <span class="keyword">public</span> <span class="title function_">MyThread</span><span class="params">(String name)</span> &#123;</span><br><span class="line">            <span class="built_in">super</span>(name);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//这个run方法里面的代码，就是这个线程具体运行的代码</span></span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">run</span><span class="params">()</span> &#123;</span><br><span class="line">            System.out.println(<span class="string">&quot;当前线程是：&quot;</span> + Thread.currentThread().getName());</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="comment">//创建线程的时候给线程起名字</span></span><br><span class="line">        <span class="type">MyThread</span> <span class="variable">t1</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">MyThread</span>(<span class="string">&quot;T1&quot;</span>);</span><br><span class="line">        <span class="type">MyThread</span> <span class="variable">t2</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">MyThread</span>(<span class="string">&quot;T2&quot;</span>);</span><br><span class="line">        <span class="type">MyThread</span> <span class="variable">t3</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">MyThread</span>(<span class="string">&quot;T3&quot;</span>);</span><br><span class="line">        t1.start();</span><br><span class="line">        t2.start();</span><br><span class="line">        t3.start();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>运行结果：</p>
+<p><img src="/2022/more2/2.png" alt="线程的随机性"></p>
+<p>调用 start 方法后：</p>
+<ol>
+<li>调用 start 之后，程序会通知 jvm，告诉 jvm 可以运行了</li>
+<li>jvm 异步的调用这个线程对应的 run 方法</li>
+<li>jvm 什么时候运行 run 方法，以及先运行哪个线程的 run 方法，这个是没法<strong>绝对</strong>控制的 (但是可以相对控制)</li>
+<li>start 方法的调用顺序，不代表线程的 run 方法的运行顺序。</li>
+</ol>
+<h2 id="通过实现runnable创建线程"><a class="markdownIt-Anchor" href="#通过实现runnable创建线程">#</a> 通过实现 Runnable 创建线程</h2>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MyRunnableThreadTest</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">class</span> <span class="title class_">MyRunnable</span> <span class="keyword">implements</span> <span class="title class_">Runnable</span> &#123;</span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">run</span><span class="params">()</span> &#123;</span><br><span class="line">            System.out.println(<span class="string">&quot;当前线程是：&quot;</span> + Thread.currentThread().getName());</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="comment">//Runnable是一个函数式接口，可以用lamdba表达式</span></span><br><span class="line">        <span class="type">Thread</span> <span class="variable">thread</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Thread</span>(<span class="keyword">new</span> <span class="title class_">MyRunnable</span>());</span><br><span class="line">        thread.start();</span><br><span class="line">        System.out.println(<span class="string">&quot;main线程中执行的代码：&quot;</span> + Thread.currentThread().getName());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="/2022/more2/3.png" alt="Runnable"></p>
+<p>但是 Runnable 是一个函数式接口，可以用 Lamdba 表达式：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MyRunnableThreadTest</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="comment">//Runnable是一个函数式接口，可以用lamdba表达式</span></span><br><span class="line">        <span class="type">Thread</span> <span class="variable">thread</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Thread</span>(()-&gt;&#123;</span><br><span class="line">            System.out.println(<span class="string">&quot;当前线程是：&quot;</span> + Thread.currentThread().getName());</span><br><span class="line">        &#125;, <span class="string">&quot;runnable&quot;</span>);</span><br><span class="line">        thread.start();</span><br><span class="line">        System.out.println(<span class="string">&quot;main end&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>效果：</p>
+<p><img src="/2022/more2/4.png" alt="lamdba表达式"></p>
+<h2 id="通过callable接口创建线程"><a class="markdownIt-Anchor" href="#通过callable接口创建线程">#</a> 通过 Callable 接口创建线程</h2>
+<blockquote>
+<p>Java5 开始，Java 提供了 Callable 接口，这个接口怎么看都像是 Runnable 接口的增强版，Callable 接口提供了一个 call () 方法可以作为线程执行体，但 call () 方法比 run () 方法功更强大。call () 方法可以有返回值，call () 方法可以抛出异常。</p>
+</blockquote>
+<p><img src="/2022/more2/Callable_jdk.png" alt="Callable说明"></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MyCallableTest</span> &#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 用多线程的方式计算10个 1+2+3+...+100的值：50500</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> ExecutionException, InterruptedException &#123;</span><br><span class="line">        <span class="comment">//它需要一个方法返回值</span></span><br><span class="line">        Callable&lt;Integer&gt; callable = () -&gt; &#123;</span><br><span class="line">            <span class="type">int</span> <span class="variable">sum</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">1</span>; i &lt;= <span class="number">100</span>; i++) &#123;</span><br><span class="line">                sum += i;</span><br><span class="line">            &#125;</span><br><span class="line">            System.out.println(<span class="string">&quot;当前线程是：&quot;</span> + Thread.currentThread().getName() + <span class="string">&quot;,返回值是：&quot;</span> + sum);</span><br><span class="line">            <span class="keyword">return</span> sum;</span><br><span class="line">        &#125;;</span><br><span class="line">        <span class="comment">//可以用FutureTask来获取Callable的返回值</span></span><br><span class="line">        Set&lt;FutureTask&lt;Integer&gt;&gt; futureTasks = <span class="keyword">new</span> <span class="title class_">HashSet</span>&lt;&gt;();</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; <span class="number">10</span>; i++) &#123;</span><br><span class="line">            FutureTask&lt;Integer&gt; futureTask = <span class="keyword">new</span> <span class="title class_">FutureTask</span>&lt;&gt;(callable);</span><br><span class="line">            futureTasks.add(futureTask);</span><br><span class="line">            <span class="keyword">new</span> <span class="title class_">Thread</span>(futureTask, <span class="string">&quot;T&quot;</span> + i).start();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="type">int</span> <span class="variable">result</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (FutureTask&lt;Integer&gt; futureTask : futureTasks) &#123;</span><br><span class="line">            result += futureTask.get();</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(<span class="string">&quot;最终的结果是：&quot;</span> + result);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>效果：</p>
+<p><img src="/2022/more2/5.png" alt="Callable"></p>
+<h2 id="三种线程实现方法的区别"><a class="markdownIt-Anchor" href="#三种线程实现方法的区别">#</a> 三种线程实现方法的区别</h2>
+<blockquote>
+<p>1，采用 Thread 方式实现的线程不能继承其他父类，采用 Runnable 和 Callable 接口的可以继承其他父类，但是编程上采用 Thread 的方式可以直接使用 getName () 方法，而采用 Runnable 和 Callable 接口的方式需要先获取 Thread.currentThread ();</p>
+<p>2, 采用 Runnable 和 Callable 的方式，可以多个线程公用一个 Target 对象，而采用 Thread 的方式不能，所以非常适合多个相同线程来处理同一份资源的情况</p>
+<p>3，如果需要线程有返回值的需要使用 Callable 的方式。</p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>java</category>
+        <category>多线程</category>
+      </categories>
+      <tags>
+        <tag>多线程</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>多线程（三）</title>
+    <url>/2022/more3/</url>
+    <content><![CDATA[<div class="note info flat"><p>停止线程，表示停止之后线程就被销毁了，无法再恢复。</p>
+<p>停止线程有一个 stop 方法，但是这个方法已经过时，我们不用它。</p>
+<p>一般手动停止线程。</p>
+<p>或者线程执行完 run 方法后会正常退出。</p>
+</div>
+<h2 id="停止线程"><a class="markdownIt-Anchor" href="#停止线程">#</a> 停止线程</h2>
+<p>停止线程一般用 interrupted 和 interrupt：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">StopTest</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> InterruptedException &#123;</span><br><span class="line">        <span class="type">Thread</span> <span class="variable">thread</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Thread</span>(() -&gt; &#123;</span><br><span class="line">            <span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">             <span class="comment">/*</span></span><br><span class="line"><span class="comment">                判断当前线程是否处于中断状态，如果是中断状态返回true，并把状态改为未中断</span></span><br><span class="line"><span class="comment">                如果不是中断状态，返回false</span></span><br><span class="line"><span class="comment">             */</span></span><br><span class="line">            <span class="keyword">while</span> (!interrupted()) &#123;</span><br><span class="line">                System.out.println(<span class="string">&quot;我是线程&quot;</span> + Thread.currentThread().getName() + <span class="string">&quot;, 我在while循环~  第&quot;</span>+ (++i) +<span class="string">&quot;次&quot;</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;, <span class="string">&quot;111&quot;</span>);</span><br><span class="line">        thread.start();</span><br><span class="line">        Thread.sleep(<span class="number">100</span>);</span><br><span class="line">        <span class="comment">//改变当前线程的中断状态 未中断--&gt;中断  手动停止线程</span></span><br><span class="line">        thread.interrupt();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="暂停线程"><a class="markdownIt-Anchor" href="#暂停线程">#</a> 暂停线程</h2>
+<p><strong>概念：表示线程暂时挂起，不被运行，等到恢复之后，可以从暂停点开始继续运行。</strong></p>
+<p>暂停线程使用：</p>
+<ol>
+<li><code>suspend()</code> ：暂停线程</li>
+<li><code>resume()</code> ：恢复线程</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">SrTest</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> InterruptedException &#123;</span><br><span class="line">        <span class="type">Thread</span> <span class="variable">thread</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Thread</span>(()-&gt;&#123;</span><br><span class="line">            <span class="type">int</span> <span class="variable">num</span> <span class="operator">=</span> <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">while</span> (<span class="literal">true</span>) &#123;</span><br><span class="line">                System.out.println(Thread.currentThread().getName()+<span class="string">&quot; num::&quot;</span>+(num++));</span><br><span class="line">                <span class="keyword">try</span> &#123;</span><br><span class="line">                    Thread.sleep(<span class="number">1000</span>);</span><br><span class="line">                &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                    e.printStackTrace();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;, <span class="string">&quot;ttt&quot;</span>);</span><br><span class="line">        thread.start();</span><br><span class="line">        Thread.sleep(<span class="number">5000</span>);</span><br><span class="line">        System.out.println(<span class="string">&quot;准备暂停子线程...&quot;</span>);</span><br><span class="line">        thread.suspend(); <span class="comment">//暂停线程</span></span><br><span class="line">        Thread.sleep(<span class="number">5000</span>);</span><br><span class="line">        System.out.println(<span class="string">&quot;准备恢复子线程...&quot;</span>);</span><br><span class="line">        thread.resume(); <span class="comment">//恢复线程</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<div class="note danger flat"><p>不过上面这两个方法都是已过时的，可以使用 wait 和 notify 来实现暂停线程和恢复线程的效果。</p>
+<p>后面再写。</p>
+</div>]]></content>
+      <categories>
+        <category>java</category>
+        <category>多线程</category>
+      </categories>
+      <tags>
+        <tag>多线程</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>多线程（五）</title>
+    <url>/2022/more5/</url>
+    <content><![CDATA[<h2 id="什么是线程通信"><a class="markdownIt-Anchor" href="#什么是线程通信">#</a> 什么是线程通信</h2>
+<p>进程是由多个线程组成的，那一个线程是一个 “个体”，多个 “个体” 之间需要经过某些处理，使它们成为一个 “整体”，这样多个线程之间能够更好的合作（交互）。线程之间的通信，可以提高 CPU 的利用率。</p>
+<p>就像是一个人 VS 一个团队，那肯定还是团队效率更好。</p>
+<h2 id="等待通知机制"><a class="markdownIt-Anchor" href="#等待通知机制">#</a> 等待通知机制</h2>
+<p><img src="/2022/more5/wait.png" alt="等待通知机制"></p>
+<p>等待通知机制的原理 和 现在的外卖小哥与饭店外卖的关系很像：</p>
+<ol>
+<li>我们在手机上下单之后，外卖小哥就会去饭店</li>
+<li>外卖小哥到了饭店后，可能这个时候厨师还没做完，那就需要等等。(这里就是等待)</li>
+<li>厨师什么时候做完饭，外卖小哥就什么时候拿到，这里相当于是厨师通知外卖小哥可以拿外卖了。（就是对应的通知）</li>
+</ol>
+<h2 id="wait和notify方法"><a class="markdownIt-Anchor" href="#wait和notify方法">#</a> wait 和 notify 方法</h2>
+<p><img src="/2022/more5/api.png" alt="wait和notify"></p>
+<div class="note info flat"><p>wait 方法：将当前线程置入 “预执行队列” 中，并且释放锁，当前线程重新获取到锁后，会从 wait 方法后面的代码继续执行。</p>
+<p>notify 方法：用来通知等待对象锁的其他线程，如果有多个线程在等，那么会随机挑一个正在等待的线程把锁给它。</p>
+<p>notifyAll 方法：唤醒等待此对象的所有线程。</p>
+<p>三个方法调用之前都必须获取到对象级别的锁，不然会报异常。</p>
+</div>
+<p>示例：简单模拟下外卖小哥取餐的流程</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">WaitAndNotifyTest</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="type">Object</span> <span class="variable">lock</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Object</span>();</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">Thread</span> <span class="variable">takeout</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Thread</span>(() -&gt; &#123;</span><br><span class="line">            <span class="keyword">synchronized</span> (lock) &#123;</span><br><span class="line">                System.out.println(<span class="string">&quot;外卖员到了，准备取餐&quot;</span>);</span><br><span class="line">                <span class="keyword">try</span> &#123;</span><br><span class="line">                    <span class="comment">//进行等待</span></span><br><span class="line">                    lock.wait(<span class="number">200</span>);</span><br><span class="line">                &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                    e.printStackTrace();</span><br><span class="line">                &#125;</span><br><span class="line">                System.out.println(<span class="string">&quot;外卖员拿到餐了&quot;</span>);</span><br><span class="line"></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;, <span class="string">&quot;外卖小哥&quot;</span>);</span><br><span class="line"></span><br><span class="line">        takeout.start();</span><br><span class="line"></span><br><span class="line">        <span class="type">Thread</span> <span class="variable">cook</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Thread</span>(() -&gt; &#123;</span><br><span class="line">            <span class="keyword">synchronized</span> (lock) &#123;</span><br><span class="line">                System.out.println(<span class="string">&quot;厨师正在做饭&quot;</span>);</span><br><span class="line">                <span class="keyword">try</span> &#123;</span><br><span class="line">                    <span class="comment">//用休眠来模拟厨师正在做饭</span></span><br><span class="line">                    Thread.sleep(<span class="number">4000</span>);</span><br><span class="line">                &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                    e.printStackTrace();</span><br><span class="line">                &#125;</span><br><span class="line">                System.out.println(<span class="string">&quot;做好了&quot;</span>);</span><br><span class="line">                lock.notify();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;, <span class="string">&quot;厨师&quot;</span>);</span><br><span class="line"></span><br><span class="line">        cook.start();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>关于上面的例子，只是简单用了下 wait 和 notify 方法。</p>
+<div class="note info flat"><p>官方推荐的等待方式是检查 while 循环中正在等待的条件，调用 wait。这种方法避免了可能由虚假唤醒引起的问题。</p>
+<p>虚假唤醒： 是一个表象，即在多处理器的系统下发出 wait 的程序有可能在没有 notify 唤醒的情形下苏醒继续执行。</p>
+</div>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//推荐等待方式：</span></span><br><span class="line"><span class="keyword">synchronized</span> (obj) &#123; </span><br><span class="line">    <span class="keyword">while</span> (&lt;condition does not hold&gt; and &lt;timeout not exceeded&gt;)  &#123;  </span><br><span class="line">        <span class="type">long</span> <span class="variable">timeoutMillis</span> <span class="operator">=</span> ... ; <span class="comment">// recompute timeout values int nanos = ... ; </span></span><br><span class="line">        obj.wait(timeoutMillis, nanos); </span><br><span class="line">    &#125; ...  <span class="comment">// Perform action appropriate to condition or timeout </span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="线程生命周期图"><a class="markdownIt-Anchor" href="#线程生命周期图">#</a> 线程生命周期图</h2>
+<p><img src="/2022/more5/thread.png" alt="线程生命周期图"></p>
+]]></content>
+      <categories>
+        <category>java</category>
+        <category>多线程</category>
+      </categories>
+      <tags>
+        <tag>多线程</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>redis conf</title>
+    <url>/2021/redis-conf/</url>
+    <content><![CDATA[<h2 id="redis配置"><a class="markdownIt-Anchor" href="#redis配置">#</a> Redis 配置</h2>
+<blockquote>
+<p>Redis 默认定义了很多默认配置。但在实际开发中，一般会通过手动配置完成。</p>
+<p>回到安装目录下找到解压文件中的 redis.conf</p>
+<p>Redis 的配置文件位于 Redis 安装目录下，文件名为：redis.conf</p>
+</blockquote>
+<span id="more"></span>
+<h3 id="配置redis"><a class="markdownIt-Anchor" href="#配置redis">#</a> 配置 Redis</h3>
+<p>命令：解压目录下的 redis.conf 配置文件复制到安装文件的目录下</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cp</span> /opt/redis-6.2.6/redis.conf /usr/local/redis/</span><br></pre></td></tr></table></figure>
+<h2 id="redisconf-标是需要重点关注的"><a class="markdownIt-Anchor" href="#redisconf-标是需要重点关注的">#</a> redis.conf  (标 * 是需要重点关注的)</h2>
+<h3 id="前十个"><a class="markdownIt-Anchor" href="#前十个">#</a> 前十个</h3>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">* 1、redis默认不是以守护进程的方式运行，可以通过配置项修改，使用<span class="built_in">yes</span>启动守护进程</span><br><span class="line">daemonize no     <span class="comment"># 默认是no，但是一般还是改成yes启动守护进程</span></span><br><span class="line"></span><br><span class="line">2、当Redis以守护进程方式运行时，Redis默认会把pid写入/var/run/redis.pid文件，可以通过pidfile指定</span><br><span class="line">pidfile /var/run/redis.pid</span><br><span class="line"></span><br><span class="line">* 3、指定Redis监听端口，默认端口为6379（据说是6379在手机按键上对应的MERZ是作者喜欢的歌女名字）</span><br><span class="line">port 6379</span><br><span class="line"></span><br><span class="line">* 4、绑定的主机地址（默认只允许127.0.0.1 Redis发起访问）</span><br><span class="line"><span class="built_in">bind</span> 127.0.0.1    <span class="comment"># 开发时注释掉，否则只有本机才能访问到</span></span><br><span class="line"></span><br><span class="line">5、当客户端闲置多长时间后关闭连接，如果指定为0，表示关闭该功能</span><br><span class="line"><span class="built_in">timeout</span> 300</span><br><span class="line"></span><br><span class="line">6、指定日志记录级别，redis总共支持四个级别：debug、verbose、notice、warning，默认为verbose</span><br><span class="line">loglevel verbose</span><br><span class="line"></span><br><span class="line">7、日志记录方式，默认为标准输出，如果配置Redis为守护进程方式运行，而这里又配置日志记录方式为标准输出，则日志将会发送给/dev/null</span><br><span class="line">logfile stdout</span><br><span class="line"></span><br><span class="line">* 8、设置数据库的数量，默认数据库为0，默认数量是16个，可以使用select &lt;dbid&gt;命令在连接上指定数据库<span class="built_in">id</span></span><br><span class="line">databases 16</span><br><span class="line"></span><br><span class="line">* 9、指定在多长时间内，有多少次更新操作，就讲数据同步到数据文件，可以多个条件配合</span><br><span class="line">save &lt;seconds&gt; &lt;changes&gt;</span><br><span class="line">Redis默认配置文件中提供了三个条件：</span><br><span class="line">save 3600 1  <span class="comment"># 900秒（15分钟）内有1个更改 同步到数据文件</span></span><br><span class="line">save 300 100  <span class="comment"># 300秒（5分钟）内有10个更改</span></span><br><span class="line">save 60 10000  <span class="comment"># 60秒内有10000个更改</span></span><br><span class="line"><span class="comment"># 以上都是注释掉的，具体值按需求自定义设置</span></span><br><span class="line"></span><br><span class="line">* 10、指定存储至本地数据库时是否压缩数据，默认为<span class="built_in">yes</span>，Redis采用LZF（压缩算法）压缩，如果为了节省CPU时间，可以关闭该选项，但会导致数据库文件变得巨大</span><br><span class="line">rdbcompression <span class="built_in">yes</span></span><br></pre></td></tr></table></figure>
+<h3 id="中间十个"><a class="markdownIt-Anchor" href="#中间十个">#</a> 中间十个</h3>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">* 11、指定本地数据库文件名，默认值为dump.rdb</span><br><span class="line">dbfilename dump.rdb</span><br><span class="line"></span><br><span class="line">* 12、指定本地数据库文件名</span><br><span class="line"><span class="built_in">dir</span> ./</span><br><span class="line"></span><br><span class="line">13、设置当本机为slave服务时，设置master服务的IP地址及端口，在Redis启动时，它会自动从master进行数据同步</span><br><span class="line">slaveof &lt;masterip&gt; &lt;masterport&gt;</span><br><span class="line"></span><br><span class="line">14、当master服务设置了密码保护时，slave服务连接master的密码</span><br><span class="line">masterauth &lt;master-password&gt;</span><br><span class="line"></span><br><span class="line">* 15、设置Redis连接密码，如果配置了连接密码，客户端在连接Redis时需要通过AUTH &lt;password&gt;命令提供密码，默认关闭</span><br><span class="line">requirepass foobared  <span class="comment"># 一定要设置一个密码（保证服务安全/有些情况下不设定密码是无法进行远程连接访问的）</span></span><br><span class="line"></span><br><span class="line">16、设置同一时间最大客户端连接数，默认无限制，Redis可以同时打开的客户端连接数为Redis进程可以打开的最大文件描述符数，如果设置maxclients 0，表示不作限制。当客户端连接数到达限制时，Redis会关闭新的连接并向客户端返回max number of clients reached错误信息</span><br><span class="line">maxclients 128</span><br><span class="line"></span><br><span class="line">17、指定Redis最大内存限制，Redis在启动时会把数据加载到内存中，达到最大内存后，Redis会先尝试清除已到期或即将到期的Key，当此方法处理后，仍然达到最大内存设置，将无法再进行写入操作，但仍然可以进行读取操作。Redis新的VM机制，会把Key存放内存，Value会存放在swap区</span><br><span class="line">maxmemory &lt;bytes&gt;</span><br><span class="line"></span><br><span class="line">18、指定是否在每次更新操作后进行日志记录，Redis在默认情况下是异步的把数据写入磁盘，如果不开启，可能会在断电时导致一段时间内的数据丢失。因为redis本身同步数据文件是按上面save条件来同步的，所以有的数据会在一段时间内只存在于内存中。默认为no</span><br><span class="line">appendonly no</span><br><span class="line"></span><br><span class="line">19、指定更新日志文件名，默认为appendonly.aof</span><br><span class="line">appendfilename appendonly.aof</span><br><span class="line"></span><br><span class="line">20、指定更新日志条件，共有3个可选值：</span><br><span class="line">no：表示等操作系统进行数据缓存同步到磁盘（快）</span><br><span class="line">always：表示每次更新操作后手动调用fsync（）将数据写到磁盘  （慢，安全）</span><br><span class="line">everysec：表示每秒同步一次（折中，默认值）</span><br><span class="line">appendfsync everysec</span><br></pre></td></tr></table></figure>
+<h3 id="结尾十个"><a class="markdownIt-Anchor" href="#结尾十个">#</a> 结尾十个</h3>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">21、 指定是否启用虚拟机内存机制，默认值为no</span><br><span class="line"><span class="comment"># VM机制将数据分页存放，由Redis将访问量较少的页，即冷数据swap到磁盘上，访问多的页面由磁盘自动换出到内存中</span></span><br><span class="line">vm-enabled no</span><br><span class="line"></span><br><span class="line">22、虚拟内存文件路径，默认值为/tmp/redis.swap，不可多个Redis实例共享</span><br><span class="line">vm-swap-file /tmp/redis.swap</span><br><span class="line"></span><br><span class="line">23、将所有大于vm-max-memory的数据存入虚拟内存，无论vm-max-memory设置多小，所有索引数据都是内存存储的（Redis的索引数据 就是keys），也就是说，当vm-max-memory设置为0时，所有value都存在于磁盘。默认值为 0</span><br><span class="line">vm-max-memory   0</span><br><span class="line"></span><br><span class="line">24、Redis swap文件分成了很多的page，一个对象可以保存在多个page上，但一个page上不能被多个对象共享，vm-page-size是要根据存储的数据大小来设定的，Redis作者建议如果存储很多小对象，page大小最好设置为32或64bytes；如果存储很大的对象，则可以使用更大的page；如果不确定，就使用默认值。</span><br><span class="line">vm-page-size 32</span><br><span class="line"></span><br><span class="line">25、设置swap文件中的page数量，由于页表（一种表示页面空闲使用的bitmap）是放在内存中的。在磁盘上每8个pages将消耗 1 byte的内存。</span><br><span class="line">vm-pages   134217728</span><br><span class="line"></span><br><span class="line">26、设置访问swap文件的线程数，最好不要超过机器的核数，如果设置为 0，那么所有对swap文件的操作都是串行的，可能会造成比较长时间的延迟。默认值为 4</span><br><span class="line">vm-max-threads   4</span><br><span class="line"></span><br><span class="line">27、设置在向客户端应答时，是否把较小的合并为一个包发送，默认为开启</span><br><span class="line">glueoutputbuf   <span class="built_in">yes</span></span><br><span class="line"></span><br><span class="line">28、指定在超过一定的数量或者最大的元素超过某一临界值时，采用一种特殊的哈希算法</span><br><span class="line">hash-max-zipmap-entries   64</span><br><span class="line">hash-max-zipmap-value   512</span><br><span class="line"></span><br><span class="line">29、指定是否激活重置哈希，默认为开启</span><br><span class="line">activerehashing   <span class="built_in">yes</span></span><br><span class="line"></span><br><span class="line">30、指定包含其他的配置文件，可以在同一主机上多个Redis实例之间使用同一份配置文件，而同时各个实例又拥有自己的特定配置文件</span><br><span class="line">include   /path/to/local.conf</span><br></pre></td></tr></table></figure>
+<h2 id="redis中的内存维护策略"><a class="markdownIt-Anchor" href="#redis中的内存维护策略">#</a> Redis 中的内存维护策略</h2>
+<blockquote>
+<p>redis 作为优秀的中间缓存件，时常会存储大量的数据，即使采取了集群部署来动态扩容，也应该即时的整理内存，维持系统性能。</p>
+</blockquote>
+<p>在 Redis 中有两种解决方案</p>
+<h3 id="为数据设置超时时间"><a class="markdownIt-Anchor" href="#为数据设置超时时间">#</a> 为数据设置超时时间</h3>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">expire  key  time （以秒为单位）---这是最常用的方式</span><br><span class="line">setex（String  key，int  seconds，String  value）---字符串独有的方式</span><br></pre></td></tr></table></figure>
+<blockquote>
+<ul>
+<li>除了字符串自己独有设置过期时间的方法外，其他方法都需要依靠 expire 方法来设置时间</li>
+<li>如果没有设置时间，那缓存就是永不过期</li>
+<li>如果设置了过期时间，之后又想让缓存永不过期，使用 persist  key</li>
+</ul>
+</blockquote>
+<h3 id="采用lru算法将不用的数据删除"><a class="markdownIt-Anchor" href="#采用lru算法将不用的数据删除">#</a> 采用 LRU 算法将不用的数据删除</h3>
+<blockquote>
+<p>内存管理的一种页面置换算法，对于在内存中但又不用的数据块（内存块）叫做 LRU，</p>
+<p>操作系统会根据哪些数据属于 LRU 而将其移出内存而腾出空间来加载另外的数据。（说白了就是把内存中不用的数据移出去给别的数据腾地）</p>
+<ol>
+<li>
+<p>volatile-lru：设定超时时间的数据中，删除最不常使用的数据.</p>
+</li>
+<li>
+<p>allkeys-lru：查询所有的 key 中最近最不常使用的数据进行删除，这是应用最广泛的策略.</p>
+</li>
+<li>
+<p>volatile-random：在已经设定了超时的数据中随机删除.</p>
+</li>
+<li>
+<p>allkeys-random：查询所有的 key, 之后随机删除.</p>
+</li>
+<li>
+<p>volatile-ttl：查询全部设定超时时间的数据，之后排序，将马上将要过期的数据进行删除操作.</p>
+</li>
+<li>
+<p>noeviction：如果设置为该属性，则不会进行删除操作，如果内存溢出则报错返回.</p>
+</li>
+<li>
+<p>volatile-lfu：从所有配置了过期时间的键中驱逐使用频率最少的键</p>
+</li>
+<li>
+<p>allkeys-lfu：从所有键中驱逐使用频率最少的键</p>
+</li>
+</ol>
+</blockquote>
+<h2 id="自定义配置redis"><a class="markdownIt-Anchor" href="#自定义配置redis">#</a> 自定义配置 Redis</h2>
+<p><strong>进入对应的安装目录  /usr/local/redis</strong> 修改 redis.conf 配置文件 vi redis.conf（进入命令模式  使用 <code>/内容</code>  查找相应字符串）</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">daemonize  no     修改为  daemonize <span class="built_in">yes</span>  守护进程启动</span><br><span class="line"><span class="built_in">bind</span>  127.0.0.1     注释掉允许除本机外的机器访问Redis服务</span><br><span class="line">requirepass  设置密码   ---&gt;设定数据库密码 （保证服务安全/有些情况下不设定密码是无法进行远程连接访问的）</span><br><span class="line">protected-mode no  ---&gt;设置为no，默认是<span class="built_in">yes</span>的，防止了远程访问</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>Redis 采用的是单进程多线程的模式。当 redis.conf 中选项 daemonize 设置成 yes 时，代表开启守护进程模式。</p>
+<p>在该模式下，redis 会在后台运行，并将进程 pid 号写入至 redis.conf 选项 pidfile 设置的文件中，此时 redis 将一直运行，除非手动 kill 该进程。但当 daemonize 选项设置成 no 时，当前界面将进入 redis 的命令行界面，exit 强制退出或者关闭连接工具 (putty,xshell 等) 都会导致 redis 进程退出。<strong>服务端开发的大部分应用都是采用后台运行的模式。</strong></p>
+<p>requirepass 设置密码。因为 redis 速度相当快，所以一台比较好的服务器下，一个外部用户在一秒内可以进行 15 万 次密码尝试，这意味着我们需要设定非常强大的密码来防止暴力破解。</p>
+<p>可以通过 redis 的配置文件设置密码参数，这样客户端连接到 redis 服务就需要密码验证，这样可以让 redis 服务更安全。</p>
+</blockquote>
+<h2 id="启动redis"><a class="markdownIt-Anchor" href="#启动redis">#</a> 启动 Redis</h2>
+<h3 id="服务端启动"><a class="markdownIt-Anchor" href="#服务端启动">#</a> 服务端启动：</h3>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">./bin/redis-server  ./redis.conf</span><br></pre></td></tr></table></figure>
+<h3 id="客户端登录用redis-cli密码登录redis-cli-a-password"><a class="markdownIt-Anchor" href="#客户端登录用redis-cli密码登录redis-cli-a-password">#</a> 客户端登录：用 redis-cli 密码登录（redis-cli  -a  password）</h3>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">redis-cli  -h  host  -p  port  -a  password		<span class="comment">#redis-cli  -h  IP地址  -p  端口号  -a  密码</span></span><br></pre></td></tr></table></figure>
+<h2 id="关闭redis"><a class="markdownIt-Anchor" href="#关闭redis">#</a> 关闭 Redis</h2>
+<h3 id="非正常关闭"><a class="markdownIt-Anchor" href="#非正常关闭">#</a> 非正常关闭</h3>
+<p>断电、非正常关闭。容易数据丢失。</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="comment">#  查询 redis 进程 id</span></span><br><span class="line">PID  ps  -ef  |  grep  -i  redis</span><br><span class="line"><span class="comment">#  kill 对查询的 id 进行强制关闭</span></span><br><span class="line"><span class="built_in">kill</span>  -9  PID  <span class="comment"># -9：杀死一个进程。 -1：重新加载进程。  -15：正常停止一个进程。</span></span><br></pre></td></tr></table></figure>
+<h3 id="正常关闭"><a class="markdownIt-Anchor" href="#正常关闭">#</a> 正常关闭</h3>
+<p>正常关闭，数据保存。</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="comment">#  关闭 redis 服务，通过客户端进行shutdown</span></span><br><span class="line"><span class="comment">#  shutdown  命令会终止服务器上的所有客户端连接，并终止服务器。</span></span><br><span class="line"><span class="comment">#  如果 redis 设置了密码，需要先在客户端通过密码登录，再进行 shutdown 即可关闭服务端</span></span><br></pre></td></tr></table></figure>
+<p><img src="/2021/redis-conf/kill.png" alt="正常关闭进程"></p>
+<h2 id="远程连接"><a class="markdownIt-Anchor" href="#远程连接">#</a> 远程连接</h2>
+<p>远程连接比较流行的软件： <code>RedisDesktopManager</code></p>
+<p>双击点开软件，点击左侧右下角：</p>
+<p><img src="/2021/redis-conf/connect.png" alt="远程连接"></p>
+<p>填写信息：</p>
+<p><img src="/2021/redis-conf/text.png" alt="填写信息"></p>
+<p>测试成功出现：</p>
+<p><img src="/2021/redis-conf/success.png" alt="测试成功"></p>
+<p>如果测试不成功，关闭 linux 的防火墙，然后重启 linux：</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">关闭防火墙：</span><br><span class="line">service iptables stop</span><br><span class="line">开启防火墙：</span><br><span class="line">service iptables start </span><br><span class="line">重启防火墙：</span><br><span class="line">service iptables restart </span><br><span class="line">永久关闭防火墙：</span><br><span class="line">chkconfig iptables off</span><br><span class="line">重启系统：</span><br><span class="line">shutdown -r now 或者 reboot</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>redis</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>多线程（四）</title>
+    <url>/2022/more4/</url>
+    <content><![CDATA[<h2 id="yield方法的作用"><a class="markdownIt-Anchor" href="#yield方法的作用">#</a> yield 方法的作用</h2>
+<p><strong>yield 方法的作用是让当前正在运行的线程放弃 CPU 资源，让给其他线程使用。</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">YieldTest</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">Thread</span> <span class="variable">t</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Thread</span>(()-&gt;&#123;</span><br><span class="line">            <span class="type">long</span> <span class="variable">startTime</span> <span class="operator">=</span> System.currentTimeMillis();</span><br><span class="line">            <span class="type">int</span> <span class="variable">num</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; <span class="number">1000000</span>; i++) &#123;</span><br><span class="line">                num ++;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="type">long</span> <span class="variable">endTime</span> <span class="operator">=</span> System.currentTimeMillis();</span><br><span class="line">            System.out.println(Thread.currentThread().getName() + <span class="string">&quot;完成耗时：&quot;</span> + (endTime - startTime) + <span class="string">&quot;毫秒&quot;</span>);</span><br><span class="line">        &#125;,<span class="string">&quot;线程1&quot;</span>);</span><br><span class="line">        t.start();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>以上的运行结果是： <code>线程1完成耗时：3毫秒</code>  ，非常的快</p>
+<p>接下来看一下加上 yield 方法：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">YieldTest</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">Thread</span> <span class="variable">t</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Thread</span>(()-&gt;&#123;</span><br><span class="line">            <span class="type">long</span> <span class="variable">startTime</span> <span class="operator">=</span> System.currentTimeMillis();</span><br><span class="line">            <span class="type">int</span> <span class="variable">num</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; <span class="number">1000000</span>; i++) &#123;</span><br><span class="line">                num ++;</span><br><span class="line">                <span class="comment">//让当前线程让出CPU的执行权，给其他线程使用</span></span><br><span class="line">                Thread.yield();</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="type">long</span> <span class="variable">endTime</span> <span class="operator">=</span> System.currentTimeMillis();</span><br><span class="line">            System.out.println(Thread.currentThread().getName() + <span class="string">&quot;完成耗时：&quot;</span> + (endTime - startTime) + <span class="string">&quot;毫秒&quot;</span>);</span><br><span class="line">        &#125;,<span class="string">&quot;线程1&quot;</span>);</span><br><span class="line">        t.start();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>以上的运行结果是： <code>线程1完成耗时：375毫秒</code> ，可以看出加了 yield 方法比不加慢了很多，这个就是因为当前线程让出了 CPU 的执行权给其他线程了。</p>
+<div class="note info flat"><p>这个 yield 方法，只是通知 jvm 要放弃 CPU 的执行权，但是什么时候放弃，放弃多久，这个就不确定了</p>
+<p>或许某个线程刚刚放弃，立刻马上又获取到了 CPU 执行权，这也是有可能的。</p>
+</div>
+<h2 id="优先级"><a class="markdownIt-Anchor" href="#优先级">#</a> 优先级</h2>
+<ul>
+<li>在操作系统中，线程是有优先级的。系统会把 CPU 资源优先 给 优先级高 的线程使用。</li>
+<li>java 中优先级具有继承性，子类会默认继承父类的优先级。比如线程 A 中启动了一个线程 B，那么线程 B 和线程 A 的优先级是一样的。</li>
+</ul>
+<h2 id="优先级具体使用"><a class="markdownIt-Anchor" href="#优先级具体使用">#</a> 优先级具体使用</h2>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">PriorityTest</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">Runnable</span> <span class="variable">r</span> <span class="operator">=</span> () -&gt; &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; <span class="number">500</span>; i++) &#123;</span><br><span class="line">                System.out.println(<span class="string">&quot;当前线程的名字是：&quot;</span> + Thread.currentThread().getName() + <span class="string">&quot;，我已经运行到了&quot;</span> + i);</span><br><span class="line">            &#125;</span><br><span class="line">            System.out.println(<span class="string">&quot;当前线程是：&quot;</span> + Thread.currentThread().getName() + <span class="string">&quot;，我已经运行完了&quot;</span>);</span><br><span class="line">        &#125;;</span><br><span class="line"></span><br><span class="line">        <span class="type">Thread</span> <span class="variable">A</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Thread</span>(r, <span class="string">&quot;A&quot;</span>);</span><br><span class="line">        A.setPriority(<span class="number">1</span>);<span class="comment">//设置当前线程的优先级</span></span><br><span class="line">        A.start();</span><br><span class="line"></span><br><span class="line">        <span class="type">Thread</span> <span class="variable">B</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Thread</span>(r, <span class="string">&quot;B&quot;</span>);</span><br><span class="line">        B.setPriority(<span class="number">8</span>);</span><br><span class="line">        B.start();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>结果：在没有设置优先级的情况下，线程谁先运行完，他们的概率是差不多的。但是调用了 <code>setPriprity</code>  方法之后，值更大的会优先完成。</p>
+<div class="note danger flat"><p>CPU 会优先分配给线程优先级高的线程使用，但是线程优先级低的线程也一样有 CPU 的使用权。</p>
+<p>线程优先级高并不代表一定是当前线程执行完之后才会运行优先级低的线程。</p>
+<p>虽然设置了优先级，但是优先级低的线程还是有可能先执行完的。（只是概率较低）</p>
+</div>
+<h2 id="守护线程"><a class="markdownIt-Anchor" href="#守护线程">#</a> 守护线程</h2>
+<p>JAVA 中有两种线程，一种是用户线程，一种是守护线程。</p>
+<p>守护线程一种特殊的线程，他具有陪伴的意义。当系统中不存在用户线程了之后，守护线程也就随之会销毁。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">GuardTest</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">Thread</span> <span class="variable">thread</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Thread</span>(()-&gt;&#123;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                Thread.sleep(<span class="number">2000</span>);</span><br><span class="line">            &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">//线程设置为守护线程之后，这个代码就不会执行</span></span><br><span class="line">            System.out.println(<span class="string">&quot;我是子线程，我运行完了...&quot;</span>);</span><br><span class="line">        &#125;);</span><br><span class="line">        thread.setDaemon(<span class="literal">true</span>); <span class="comment">//将线程设置为守护线程</span></span><br><span class="line">        thread.start();</span><br><span class="line">        System.out.println(<span class="string">&quot;我是main线程，我运行完了...&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上面的运行结果是只输出了 main 线程的。因为子线程被设置为守护线程，等待 2 秒之后发现主线程已经执行完了，这个时候系统中没有用户线程了，所以子线程直接销毁，也就没有执行后面的代码。</p>
+<div class="note info flat"><p>典型的守护线程是 jvm 的垃圾回收，如果所有的用户线程都销毁了，那就没有任何东西可以回收，这个时候垃圾回收器就被销毁掉了。</p>
+</div>
+]]></content>
+      <categories>
+        <category>java</category>
+        <category>多线程</category>
+      </categories>
+      <tags>
+        <tag>多线程</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>redis初识</title>
+    <url>/2021/redis%E5%88%9D%E8%AF%86/</url>
+    <content><![CDATA[<h2 id="介绍"><a class="markdownIt-Anchor" href="#介绍">#</a> 介绍</h2>
+<h3 id="引言"><a class="markdownIt-Anchor" href="#引言">#</a> 引言</h3>
+<blockquote>
+<p>问题：</p>
+<ol>
+<li>
+<p>由于用户量增大，请求数量也随之增大，频繁的 io 访问使数据库压力过大。</p>
+</li>
+<li>
+<p>多台服务器之间，数据不同步。（比如用户在服务器 1 上进行了登录，此时 session 信息只在服务器 1 上有，服务器 2、3… 没有数据，就会造成用户可能要进行多次登录）</p>
+</li>
+<li>
+<p>多台服务器之间的锁，已经不存在互斥性了。</p>
+</li>
+</ol>
+<span id="more"></span>
+<p>redis 如何解决：</p>
+<ol>
+<li>redis 是基于内存存储数据和读取数据的，这样就可以减少 io 访问。</li>
+<li>可以将之前存储在 session 中的共享数据统一的存放在 redis 中。</li>
+<li>redis 基于接收用户的请求是单线程的，保证数据一致性。</li>
+</ol>
+</blockquote>
+<h3 id="nosql"><a class="markdownIt-Anchor" href="#nosql">#</a> NoSQL</h3>
+<blockquote>
+<p>Redis 就是一款 NoSQL。</p>
+<p>NoSQL --&gt; 非关系型数据库 --&gt; Not Only SQL。</p>
+<p>NoSQL 数据库被分为以下四种：</p>
+<ol>
+<li>Key-Value：Redis …</li>
+<li>文档型：ElasticSearch、Soir、MongoDB …</li>
+<li>面向列：Hbase、Cassandra … (一般情况下是大数据方向使用的)</li>
+<li>图形化：Neo4j … (一般建模用)</li>
+</ol>
+<p>除了关系型数据库都是非关系型数据库。</p>
+<p>NoSQL 只是一种概念，泛指非关系型数据库，目的是和关系型数据库做区分。</p>
+</blockquote>
+<h3 id="redis介绍"><a class="markdownIt-Anchor" href="#redis介绍">#</a> Redis 介绍</h3>
+<blockquote>
+<p>Redis：</p>
+<ul>
+<li>
+<p>Redis（Remote Dictionary Server） 即 远程字典服务</p>
+</li>
+<li>
+<p>Redis 是由 C 语言编写的</p>
+</li>
+<li>
+<p>Redis 是一款基于 Key-Value 的 NoSQL</p>
+</li>
+<li>
+<p>Redis 是基于内存存储数据的，同时提供了多种持久化机制</p>
+</li>
+<li>
+<p>性能可达 110000/s 读取数据，81000/1s 写入数据</p>
+</li>
+<li>
+<p>提供主从、哨兵以及集群的搭建方式，可以更方便的横向扩展以及垂直扩展。</p>
+</li>
+</ul>
+</blockquote>
+<h2 id="redis安装"><a class="markdownIt-Anchor" href="#redis安装">#</a> Redis 安装</h2>
+<table>
+<thead>
+<tr>
+<th>Redis 安装目录介绍</th>
+<th>目录位置</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>官网下载目录：</td>
+<td>/opt</td>
+</tr>
+<tr>
+<td>普通 Redis 安装目录：</td>
+<td>/usr/local/redis</td>
+</tr>
+<tr>
+<td>Docker 安装目录：</td>
+<td>/usr/local/docker/redis</td>
+</tr>
+<tr>
+<td>Redis 集群方式：</td>
+<td>RedisCluster  6 台服务器</td>
+</tr>
+</tbody>
+</table>
+<p>官网：<a href="https://redis.io/">https://redis.io/</a></p>
+<p>官网下载：<a href="https://redis.io/download">https://redis.io/download</a></p>
+<h3 id="安装gcc"><a class="markdownIt-Anchor" href="#安装gcc">#</a> 安装 gcc</h3>
+<p>因为 redis 是用 c 语言编写的，所以要确保 Linux 上有 c 语言环境，使用 root 登录，并确保 Linux 能连外网</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">yum -y install gcc automake autoconf libtool make</span><br></pre></td></tr></table></figure>
+<h3 id="安装redis"><a class="markdownIt-Anchor" href="#安装redis">#</a> 安装 redis</h3>
+<h4 id="下载redis二进制安装包"><a class="markdownIt-Anchor" href="#下载redis二进制安装包">#</a> 下载 redis 二进制安装包</h4>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">wget https://download.redis.io/releases/redis-6.2.6.tar.gz</span><br></pre></td></tr></table></figure>
+<h4 id="解压到opt目录下"><a class="markdownIt-Anchor" href="#解压到opt目录下">#</a> 解压到 /opt 目录下</h4>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">tar zxvf redis-6.2.6.tar.gz -C /opt</span><br><span class="line"><span class="comment"># 并进入opt目录</span></span><br><span class="line"><span class="built_in">cd</span> opt</span><br></pre></td></tr></table></figure>
+<h4 id="编译"><a class="markdownIt-Anchor" href="#编译">#</a> 编译</h4>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cd</span> /opt/redis-6.2.6 &amp;&amp; make AMLLOC=libc</span><br></pre></td></tr></table></figure>
+<p>安装成功出现如下信息：</p>
+<p><img src="/2021/redis%E5%88%9D%E8%AF%86/ok.png" alt="安装成功"></p>
+<h4 id="指定安装位置"><a class="markdownIt-Anchor" href="#指定安装位置">#</a> 指定安装位置</h4>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">make PREFIX=/usr/local/redis install</span><br></pre></td></tr></table></figure>
+<p>（安装编译后的文件）安装到指定目录：</p>
+<p><strong>注意</strong>：PREFIX 必须大写、同时会自动创建 redis 目录，并将结果安装到此目录</p>
+<h4 id="查看安装后的文件"><a class="markdownIt-Anchor" href="#查看安装后的文件">#</a> 查看安装后的文件</h4>
+<p><img src="/2021/redis%E5%88%9D%E8%AF%86/mulu.png" alt="安装后文件"></p>
+<h2 id="redis启动"><a class="markdownIt-Anchor" href="#redis启动">#</a> Redis 启动</h2>
+<h3 id="启动redis服务端"><a class="markdownIt-Anchor" href="#启动redis服务端">#</a> 启动 Redis 服务端</h3>
+<p>进入对应的安装目录：</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cd</span> /usr/local/redis</span><br></pre></td></tr></table></figure>
+<p>执行命令：</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">./bin/redis-server</span><br></pre></td></tr></table></figure>
+<h3 id="启动redis客户端"><a class="markdownIt-Anchor" href="#启动redis客户端">#</a> 启动 Redis 客户端</h3>
+<blockquote>
+<p>在 redis 的安装目录中有 redis 的客户端，即 redis-cli（Redis Command Line Interface），</p>
+<p>它是 Redis 自带的基于命令行的 Redis 客户端。</p>
+</blockquote>
+<p><strong>进入 Redis 客户端（重新打开一个终端）</strong> 进入对应的安装目录</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cd</span> /usr/local/redis</span><br></pre></td></tr></table></figure>
+<p><strong>执行命令：</strong></p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">./bin/redis-cli</span><br></pre></td></tr></table></figure>
+<h4 id="启动redis客户端命令语法"><a class="markdownIt-Anchor" href="#启动redis客户端命令语法">#</a> 启动 Redis 客户端命令语法：</h4>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">redis-cli -h IP地址 -p 端口   <span class="comment"># 默认IP本机  端口6379</span></span><br></pre></td></tr></table></figure>
+<p><strong>退出客户端命令：Ctrl+C</strong></p>
+<p><strong>检测是否服务端启动</strong></p>
+<p>启动 redis 客户端，打开终端并输入命令 <strong>redis-cli</strong>。该命令会连接本地的 redis 服务。</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="variable">$redis</span>-cli</span><br><span class="line">redis 127.0.0.1:6379&gt;</span><br><span class="line">redis 127.0.0.1:6379&gt; PING</span><br><span class="line">PING</span><br><span class="line"><span class="comment"># 以上，连接到本地的redis服务并执行PING命令，这个命令用于检测redis服务是否启动</span></span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>redis</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>配置git当前仓库的用户名和邮箱</title>
+    <url>/2022/%E9%85%8D%E7%BD%AEgit%E5%BD%93%E5%89%8D%E4%BB%93%E5%BA%93%E7%9A%84%E7%94%A8%E6%88%B7%E5%90%8D%E5%92%8C%E9%82%AE%E7%AE%B1/</url>
+    <content><![CDATA[<h2 id="配置当前仓库的用户名和邮箱"><a class="markdownIt-Anchor" href="#配置当前仓库的用户名和邮箱">#</a> 配置当前仓库的用户名和邮箱</h2>
+<p>在某个仓库（文件夹）中右键选 “git bash”，执行以下命令：</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">git config user.name <span class="string">&quot;用户名&quot;</span></span><br><span class="line">git config user.email <span class="string">&quot;邮箱&quot;</span></span><br></pre></td></tr></table></figure>
+<p>这个用户名和邮箱只对当前仓库有效。</p>
+<h2 id="配置全局仓库的用户名和邮箱"><a class="markdownIt-Anchor" href="#配置全局仓库的用户名和邮箱">#</a> 配置全局仓库的用户名和邮箱</h2>
+<p>打开 “git bash”，执行以下命令：</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">git config --global user.name <span class="string">&quot;用户名&quot;</span></span><br><span class="line">git config --global user.email <span class="string">&quot;邮箱&quot;</span></span><br></pre></td></tr></table></figure>
+<p>这个用户名和邮箱对所有的仓库都有效。</p>
+<p>可以所有仓库用同一个用户名，也可以单独设置。</p>
+<p>通过 <code>git config -l</code>  查看已配置的用户名和邮箱信息。</p>
+]]></content>
+      <categories>
+        <category>git</category>
+      </categories>
+      <tags>
+        <tag>git</tag>
+      </tags>
+  </entry>
+</search>
